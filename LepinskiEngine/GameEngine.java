@@ -19,6 +19,7 @@ public class GameEngine extends Application{
     final int NUM_TURNS = 30;
     final String team_name = "Test Team";
     final double DELAY_TIME = 2.0;
+    final String maze_file = "example1.maze";
 
     PlayerTeam the_team;
     List<Robot> team_bots;
@@ -57,7 +58,7 @@ public class GameEngine extends Application{
     }
 
     void startGame(){
-	the_maze = new DiskMaze("tournament1.maze");
+	the_maze = new DiskMaze(maze_file);
 	is_done = false;
 
 	int x = the_maze.getMaxX();
