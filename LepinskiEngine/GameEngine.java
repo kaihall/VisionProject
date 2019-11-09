@@ -123,10 +123,11 @@ public class GameEngine extends Application{
 	    team_cmds = the_team.requestCommands(scan_locations,team_bots, state.clone());
 
 	    execution.executeCommands(the_maze, team_cmds, state);
-	    state.turns_remaining -= 1;
+	    
 	    if (state.turns_remaining == 0){
 		is_done = true;
 	    }
+	    state.turns_remaining -= 1;
 	}
     }
 
