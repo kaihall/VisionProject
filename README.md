@@ -7,7 +7,7 @@ Note: The project https://github.com/mlepinski/VisionProject has only the files 
 This project additionally has the backend code for actually running a game
 
 To run a game, compile all of the java files in LepinskiEngine (you will need JavaFX)
-   javac LepinskiEngine\*java
+   javac LepinskiEngine\\*.java
 Then run: 
    java LepinskiEngine.GameEngine
 
