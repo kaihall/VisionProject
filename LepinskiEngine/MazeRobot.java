@@ -1,5 +1,5 @@
 package LepinskiEngine;
-class MazeRobot{
+public class MazeRobot{
     MazeLocation current_loc;
     ModelType the_model;
     int the_id;
