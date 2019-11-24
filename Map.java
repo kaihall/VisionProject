@@ -6,10 +6,10 @@ import java.util.HashSet;
 
 public class Map {
     //These are integers instead of enums so that strategies can use math to figure out where to go next
-    public final int DNE = -1;
-    public final int UNSCANNED = 0;
-    public final int SCANNED = 1;
-    public final int DEAD_END = 2;
+    public static final int DNE = -1;
+    public static final int UNSCANNED = 0;
+    public static final int SCANNED = 1;
+    public static final int DEAD_END = 2;
     
     private int max_x, max_y;
     private int[][] labels;
