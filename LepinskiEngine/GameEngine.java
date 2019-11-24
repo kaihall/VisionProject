@@ -13,6 +13,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import Navigation.*;
 
 
 public class GameEngine extends Application{
@@ -31,7 +32,7 @@ public class GameEngine extends Application{
 
     //You can Change TestTeam to be another class you create
     public GameEngine(){
-	the_team = new TestTeam();
+	the_team = new OurTeam();
 	execution = new StandardExecution();
     }
     
