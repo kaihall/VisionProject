@@ -18,18 +18,24 @@ public class ScoutBotStrategy1 extends BotStrategy
 		int xLoc = cur_vision.getX();
 		int yLoc = cur_vision.getY();
 		
+		// checks to see if theres only one possible direction to move in
+		// if there is it'll mark that location as a dead end
+		if (possibleDirections.size == 1){
+			map.setLabel(xLoc, yLoc, 2);
+		}
+		
 		// if the direction is both possible AND unexplored, then the bot will go that way
 		// the bot checks three away from the current posistion in each direction
-		if (possibleDirections.contains(DirType.North) && Map.getLabel(xLoc , yLoc + 3) == 0) {
+		if (possibleDirections.contains(DirType.North) && map.getLabel(xLoc , yLoc + 3) == 0) {
 			return new CommandMove(bot,DirType.North);
 		}
-		else if (possibleDirections.contains(DirType.East)&& Map.getLabel(xLoc + 3, yLoc) == 0) {
+		else if (possibleDirections.contains(DirType.East)&& map.getLabel(xLoc + 3, yLoc) == 0) {
 			return new CommandMove(bot,DirType.East);
 		}
-		else if (possibleDirections.contains(DirType.South) && Map.getLabel(xLoc, yLoc - 3) == 0) {
+		else if (possibleDirections.contains(DirType.South) && map.getLabel(xLoc, yLoc - 3) == 0) {
 			return new CommandMove(bot,DirType.South);
 		}
-		else if (possibleDirections.contains(DirType.West) && Map.getLabel(xLoc - 3, yLoc) == 0) {
+		else if (possibleDirections.contains(DirType.West) && map.getLabel(xLoc - 3, yLoc) == 0) {
 			return new CommandMove(bot,DirType.West);
 		}
 		// if all of the directions are explored then the bot picks a random direction and moves that way
