@@ -98,4 +98,12 @@ public class Map {
         
         return paths;
     }
+    
+    public int getMaxX() {
+        return max_x;
+    }
+    
+    public int getMaxY() {
+        return max_y;
+    }
 }
