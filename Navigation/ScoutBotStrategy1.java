@@ -1,3 +1,5 @@
+package Navigation;
+
 import LepinskiEngine.*;
 import java.util.List;
 import java.util.Random;
@@ -23,23 +25,23 @@ public class ScoutBotStrategy1 extends BotStrategy
         int yLoc = cur_loc.getY();
         
         // checks to see if theres only one possible direction to move in
-	// if there is it'll mark that location as a dead end
-	if (deadEnd(map,cur_loc,xLoc,yLoc)){
-	    map.setLabel(xLoc, yLoc, Map.DEAD_END);
-	}
+    // if there is it'll mark that location as a dead end
+    if (deadEnd(map,cur_loc,xLoc,yLoc)){
+        map.setLabel(xLoc, yLoc, Map.DEAD_END);
+    }
         
         // if the direction is both possible AND unexplored, then the bot will go that way
         // the bot checks three away from the current posistion in each direction
-        if (possibleDirections.contains(DirType.North) && map.getLabel(xLoc , yLoc + 3) == Map.UNSCANNED) {
+        if (possibleDirections.contains(DirType.North) && shouldCheck(DirType.North,map,xLoc,yLoc)) {
             return new CommandMove(bot,DirType.North);
         }
-        else if (possibleDirections.contains(DirType.East)&& map.getLabel(xLoc + 3, yLoc) == Map.UNSCANNED) {
+        else if (possibleDirections.contains(DirType.East) && shouldCheck(DirType.East,map,xLoc,yLoc)) {
             return new CommandMove(bot,DirType.East);
         }
-        else if (possibleDirections.contains(DirType.South) && map.getLabel(xLoc, yLoc - 3) == Map.UNSCANNED) {
+        else if (possibleDirections.contains(DirType.South) && shouldCheck(DirType.South,map,xLoc,yLoc)) {
             return new CommandMove(bot,DirType.South);
         }
-        else if (possibleDirections.contains(DirType.West) && map.getLabel(xLoc - 3, yLoc) == Map.UNSCANNED) {
+        else if (possibleDirections.contains(DirType.West) && shouldCheck(DirType.West,map,xLoc,yLoc)) {
             return new CommandMove(bot,DirType.West);
         }
         // if all of the directions are explored then the bot picks a random direction and moves that way
@@ -72,5 +74,32 @@ public class ScoutBotStrategy1 extends BotStrategy
             //if all directions are dead ends or all but one are, this location is also a dead end
             return deadEnds >= dirxns.size()-1;
         }
+    }
+    
+    private boolean shouldCheck(DirType dirxn, Map m, int xLoc, int yLoc) {
+        int xCheck = 0;
+        int yCheck = 0;
+        
+        switch (dirxn) {
+            case North:
+                yCheck = -3;
+                break;
+            case South:
+                yCheck = 3;
+                break;
+            case East:
+                xCheck = -3;
+                break;
+            case West:
+                xCheck = 3;
+                break;
+        }        
+        
+        if (xLoc+xCheck >= 0 && xLoc+xCheck <= m.getMaxX() && 
+            yLoc+yCheck >= 0 && yLoc+yCheck <= m.getMaxY() &&
+            m.getLabel(xLoc+xCheck,yLoc+yCheck) == Map.UNSCANNED)
+                return true;
+        
+        return false;
     }
 }

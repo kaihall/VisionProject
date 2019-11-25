@@ -1,3 +1,5 @@
+package Navigation;
+
 import LepinskiEngine.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -9,30 +11,33 @@ public class Map {
     public static final int DNE = -1;
     public static final int UNSCANNED = 0;
     public static final int SCANNED = 1;
-    public static final int DEAD_END = 2;
+    public static final int VISITED = 2;
+    public static final int DEAD_END = 3;
     
     private int max_x, max_y;
     private int[][] labels;
+    //private 
     private ArrayList<ArrayList<Location>> map;
     private HashSet<Location> coins;
-    private HashMap<Robot,Location> robots;
+    private HashMap<Integer,Location> robots;
     
-    public Map(int maze_x, int maze_y) {
+    public Map(int maze_x, int maze_y, List<Robot> bots) {
         max_x = maze_x - 1;
         max_y = maze_y - 1;
         
-        labels = new int[max_x][max_y];
+        labels = new int[maze_x][maze_y];
         
-        for (int i = 0; i <= max_x; i++) {
+        map = new ArrayList<ArrayList<Location>>();
+        for (int i = 0; i < maze_x; i++) {
             map.add(new ArrayList<Location>());
-            for (int j = 0; j <= max_y; j++) {
+            for (int j = 0; j < maze_y; j++) {
                 map.get(i).add(null);
                 labels[i][j] = UNSCANNED;
             }
         }
         
         coins = new HashSet<Location>();
-        robots = new HashMap<Robot,Location>();
+        robots = new HashMap<Integer,Location>();
     }
 
     public void update(List<Location> info) {
@@ -40,11 +45,13 @@ public class Map {
             int x = loc.getX();
             int y = loc.getY();
             
-            if (!loc.getCoins().isEmpty())
+            if (loc.getCoins() != null && !loc.getCoins().isEmpty())
                 coins.add(loc);
-                
-            for (Robot bot : loc.getRobots())
-                robots.put(bot,loc);
+            
+            if (loc.getRobots() != null) {
+                for (Robot bot : loc.getRobots())
+                    robots.put(bot.getID(),loc);
+            }
                 
             map.get(x).set(y,loc);
             
@@ -56,7 +63,7 @@ public class Map {
     public List<Location> findPath(Location here, Location there) {
         List<Location> path = new ArrayList<Location>();
         
-        //stubbed
+        path.add(here);
         
         return path;
     }
@@ -83,11 +90,12 @@ public class Map {
     }
     
     public Location getBotLocation(Robot bot) {
-        return robots.get(bot);
+        return robots.get(bot.getID());
     }
     
     public boolean onCoin(Robot bot) {
-        return !getBotLocation(bot).getCoins().isEmpty();
+        //System.out.println(bot + " : " + robots.get(bot));
+        return getBotLocation(bot).getCoins() != null && !getBotLocation(bot).getCoins().isEmpty();
     }
     
     public List<List<Location>> coinPaths(Location here) {
