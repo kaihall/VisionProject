@@ -1,5 +1,3 @@
-package Navigation;
-
 import LepinskiEngine.*;
 import java.util.List;
 

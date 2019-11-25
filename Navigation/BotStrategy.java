@@ -1,5 +1,3 @@
-package Navigation;
-
 import LepinskiEngine.*;
 import java.util.List;
 import java.util.ArrayList;
@@ -14,7 +12,7 @@ public abstract class BotStrategy
         switch (mod) {
             case ScoutBot:
                 strats.add(new ScoutBotStrategy1());
-                //strats.add(new ScoutBotStrategy2());
+                strats.add(new ScoutBotStrategy2());
                 break;
             case CoinBot:
                 strats.add(new CoinBotStrategy());
